@@ -1,0 +1,20 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<partial name="StatusPartial"/>
+
+@{
+    if(ViewBag.DachiNew.status != "No Meals! You can not feed your Dachi!")
+    {
+        <partial name="ButtonsPartial"/>
+    }
+    else{
+        <partial name="ResetPartial"/>
+
+    }
+}
+
+
+
+
