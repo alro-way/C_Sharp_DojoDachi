@@ -42,15 +42,10 @@ namespace C_Sharp_DojoDachi.Controllers
             }    
 
             ViewBag.DachiNew = HttpContext.Session.GetObjectFromJson<Dachi>("DachiNew");
-            if(ViewBag.DachiNew.fullness < 1 || ViewBag.DachiNew.happiness < 1 )
+            if(ViewBag.DachiNew.meals == 0)
             {
-                ViewBag.DachiNew.status = "Dead";
-            } 
-            if(ViewBag.DachiNew.fullness > 100 && ViewBag.DachiNew.happiness > 100 && ViewBag.DachiNew.energy > 100)
-            {
-                ViewBag.DachiNew.status = "Champion";
+                ViewBag.DachiNew.status = "No Meals! You can not feed your Dachi!";
             }
-            // return View("Index",newDachi);
             return View("Index");
         }
 
@@ -59,14 +54,10 @@ namespace C_Sharp_DojoDachi.Controllers
         public IActionResult Feed()
         {
             Dachi DachiCurrent = HttpContext.Session.GetObjectFromJson<Dachi>("DachiNew");
-            if(DachiCurrent.meals > 0)
+            if(DachiCurrent.meals >0)
             {
                 DachiCurrent.feed();
             } 
-            if(DachiCurrent.meals == 0)
-            {
-                DachiCurrent.status = "No Meals! You can not fee your Dachi!";
-            }
             HttpContext.Session.SetObjectAsJson("DachiNew", DachiCurrent);
             return RedirectToAction("Index");
         }
